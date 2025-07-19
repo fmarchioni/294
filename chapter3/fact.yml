@@ -1,0 +1,16 @@
+# Confronto tra le due modalità disponibili per recuperare un fact
+---
+- name: Mostra l'indirizzo IPv4 di eth0
+  hosts: all
+  gather_facts: true
+
+  tasks:
+    - name: Mostra il valore di ansible_eth0.ipv4.address
+      ansible.builtin.debug:
+        var: ansible_eth0.ipv4.address
+    - name: Mostra il valore di ansible_eth0.ipv4.address
+      ansible.builtin.debug:
+        var: ansible_facts['eth0']['ipv4']['address']
+ 
+        
+
