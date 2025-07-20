@@ -1,8 +1,8 @@
-# Questo playbook dimostra idempotenza del modulo cmd
+# Questo playbook dimostra idempotenza del modulo shell (stesso per cmd)
 
 ```yaml
 ---
-- name: Verifica Idempotenza comando cmd
+- name: Verifica Idempotenza comando shell
   hosts: all
   gather_facts: false
 
@@ -23,7 +23,7 @@ Questo script verrà sempre eseguito. Ora scommenta *creates* e verifica che lo 
 
 ```yaml
 ---
-- name: Verifica Idempotenza comando cmd
+- name: Verifica Idempotenza comando shell
   hosts: all
   gather_facts: false
 
