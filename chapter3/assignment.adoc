@@ -1,0 +1,57 @@
+---
+
+### 📘 **Assignment Ansible – Moduli `copy` e `shell`**
+
+#### Obiettivo:
+
+Scrivere un **playbook Ansible** che copi uno script su un nodo remoto, lo renda eseguibile e lo esegua usando i moduli `ansible.builtin.copy` e `ansible.builtin.shell`.
+
+---
+
+### 📋 **Requisiti:**
+
+1. **Lo script da copiare (`hello.sh`) deve contenere:**
+
+   ```bash
+   #!/bin/bash
+   echo "Hello from Ansible!" > /tmp/hello_output.txt
+   ```
+
+2. Il playbook deve:
+
+   * Copiare `hello.sh` in `/tmp/` sul nodo remoto.
+   * Assicurarsi che abbia permessi di esecuzione (`0755`).
+   * Eseguire lo script usando `ansible.builtin.shell`.
+   * Verificare che il file `/tmp/hello_output.txt` sia stato creato.
+   * Stampare il contenuto del file usando `debug`.
+
+---
+
+### 📂 **Struttura consigliata:**
+
+```
+├── inventory.ini
+├── hello.sh
+└── hello-playbook.yml
+```
+
+---
+
+### 💡 **Suggerimenti:**
+
+* Puoi usare l'attributo `mode` del modulo `copy` per assegnare i permessi di esecuzione (es. `mode: '0755'`).
+* Il modulo `shell` ti permette di lanciare comandi come se fossi in una normale shell Bash.
+* Usa `register` per salvare l'output del comando e `debug` per mostrarlo a schermo.
+* Se i nodi remoti richiedono privilegi elevati per scrivere su `/tmp`, ricordati di usare `become: true`.
+
+---
+
+### 🎯 **Obiettivo finale:**
+
+Alla fine dell'esecuzione del playbook, dovresti essere in grado di leggere la scritta `"Hello from Ansible!"` nel file `/tmp/hello_output.txt` su ogni nodo remoto.
+
+```
+ansible-navigator run -i inventory.ini -m stdout hello-playbook.yml 
+```
+---
+
