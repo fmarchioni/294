@@ -3,33 +3,33 @@
 ```yaml
 ---
 - name: Verifica Idempotenza comando cmd
-  hosts: localhost
+  hosts: all
   gather_facts: false
 
   tasks:
     - name: Initialize the database
-      ansible.builtin.command:
-        cmd: /home/student/makedb.sh
-        creates: database.db
+      ansible.builtin.shell:
+        cmd: touch database.db
+        #creates: database.db
 ```
 
 In questo caso, lo script makedb.sh potrebbe contenere:
 
 ```shell
-touch database.db
+ansible-navigator run -i inventory.ini -m stdout idem.yml
 ```
 
-Questo script verrà eseguito una volta sola. Ora commenta *creates* e verifica che viene sempre rieseguito:
+Questo script verrà sempre eseguito. Ora scommenta *creates* e verifica che lo stato non è più changed:
 
 ```yaml
 ---
 - name: Verifica Idempotenza comando cmd
-  hosts: localhost
+  hosts: all
   gather_facts: false
 
   tasks:
     - name: Initialize the database
-      ansible.builtin.command:
-        cmd: /home/student/makedb.sh
-        #creates: database.db
+      ansible.builtin.shell:
+        cmd: touch database.db
+        creates: database.db
 ```
