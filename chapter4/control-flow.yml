@@ -1,0 +1,31 @@
+# Come aggiungere all'esempio del lab control-flow.yml la verifica di connettività con mariabd
+# file: playbook.yml
+---
+- name: MariaDB server is running
+  hosts: database_dev
+  vars:
+    mariadb_packages:
+      - mariadb-server
+      - python3-PyMySQL
+  tasks:
+    - name: MariaDB packages are installed
+      ansible.builtin.dnf:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ mariadb_packages }}"
+      when: ansible_facts['distribution'] == "RedHat"
+      
+    - name: Start MariaDB service
+      ansible.builtin.service:
+        name: mariadb
+        state: started
+        enabled: true      
+    - name: Check MariaDB connectivity with mysql CLI
+      ansible.builtin.shell: |
+        mysql -u root -e "SELECT VERSION();"
+      register: mariadb_connect
+      failed_when: mariadb_connect.rc != 0
+
+    - name: Show MariaDB connectivity result
+      ansible.builtin.debug:
+        var: mariadb_connect.stdout        
