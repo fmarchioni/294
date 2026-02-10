@@ -30,7 +30,6 @@ ansible-vault create secrets.yml --vault-password-file .vault_pass
 
 2. Ti si aprirà l'editor (vi/nano). Scrivi dentro questo contenuto:
 ```yaml
-# Questo è un segreto!
 db_password: "PippoPlutoPaperino!"
 api_key: "XYZ-999-000"
 
