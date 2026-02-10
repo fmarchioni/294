@@ -11,7 +11,7 @@ Obiettivi:
 
 - Gli host del gruppo **prod** devono creare un file `/home/student/log` contenente:
   ```
-  server production
+  server prod
   ```
 - Gli host del gruppo **dev** devono creare un file `/tmp/log` contenente:
   ```
